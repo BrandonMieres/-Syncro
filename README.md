@@ -119,8 +119,8 @@ Para desarrolladores que deseen clonar y estudiar la arquitectura:
 
 1.  **Clona el repositorio**:
     ```bash
-    git clone <tu-repo>
-    cd youtube-autopublisher
+    git clone https://github.com/BrandonMieres/-Syncro.git
+    cd -Syncro
     ```
 2.  **Instala las dependencias**:
     ```bash

@@ -1,5 +1,5 @@
 {
-  "name": "youtube-autopublisher",
+  "name": "Syncro",
   "version": "1.0.0",
   "type": "module",
   "main": "dist-electron/main.js",
@@ -8,6 +8,25 @@
     "electron:dev": "concurrently \"vite\" \"electron .\"",
     "build": "vite build && electron-builder",
     "migrate": "node scripts/migrate.js"
+  },
+  "build": {
+    "appId": "com.syncro.app",
+    "productName": "Syncro",
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "icon": "build/icon.ico"
+    }
   },
   "dependencies": {
     "@fluentui/react-components": "^9.54.12",
@@ -34,6 +53,7 @@
     "concurrently": "^8.2.2",
     "electron": "^32.0.1",
     "electron-builder": "^24.13.3",
+    "png-to-ico": "^3.0.1",
     "vite": "^5.4.2",
     "vite-plugin-electron": "^0.28.7"
   }

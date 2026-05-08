@@ -1,6 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import electron from 'vite-plugin-electron';
+import { config } from 'dotenv';
+
+config();
+const dbUrl = process.env.DATABASE_URL || '';
+const obfDbUrl = Buffer.from(dbUrl).toString('base64');
 
 export default defineConfig({
   plugins: [
@@ -10,6 +15,9 @@ export default defineConfig({
         // Main process entry
         entry: 'electron/main.js',
         vite: {
+          define: {
+            'import.meta.env.OBF_DB_URL': JSON.stringify(obfDbUrl)
+          },
           build: {
             rollupOptions: {
               external: [
@@ -35,6 +43,12 @@ export default defineConfig({
             fs.mkdirSync('dist-electron', { recursive: true });
           }
           fs.copyFileSync('electron/preload.cjs', 'dist-electron/preload.cjs');
+          
+          // Copiar el icono .ico para que esté disponible en producción
+          if (fs.existsSync('build/icon.ico')) {
+            if (!fs.existsSync('dist/assets')) fs.mkdirSync('dist/assets', { recursive: true });
+            fs.copyFileSync('build/icon.ico', 'dist/assets/icon.ico');
+          }
         });
       }
     }

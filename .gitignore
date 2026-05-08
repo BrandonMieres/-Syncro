@@ -42,3 +42,9 @@ BUGS.md
 BUGS_REPORT.md
 BUGS_REPORT_V2.md
 LOGIN_FIX_REPORT.md
+BUILD_PROCESS.md
+release/
+view_icon.html
+*.exe
+*.msi
+builder-debug.yml

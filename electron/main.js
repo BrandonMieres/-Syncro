@@ -15,18 +15,22 @@ const __dirname = path.dirname(__filename);
 // Establecer el ID del modelo de usuario de la aplicación para Windows
 // Esto mejora cómo se ve y se agrupa la app en la barra de tareas
 if (process.platform === 'win32') {
-  app.setAppUserModelId('com.syncro.automation');
+  app.setAppUserModelId('com.syncro.automation.v3');
 }
 
 // Desactivar caché de shaders en disco para evitar errores inofensivos de "Acceso denegado" en desarrollo
 app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
 
 function createWindow() {
-  let iconPath = process.env.VITE_DEV_SERVER_URL 
-    ? path.join(__dirname, '../src/assets/icon.png')
-    : path.join(__dirname, '../dist/assets/icon.png');
+  let iconPath;
+  if (process.env.VITE_DEV_SERVER_URL) {
+    iconPath = path.join(__dirname, '../src/assets/icon.png');
+  } else {
+    // En producción apuntamos explícitamente al archivo .ico perfecto generado
+    iconPath = path.join(__dirname, '../dist/assets/icon.ico');
+  }
     
-  if (!fs.existsSync(iconPath)) {
+  if (iconPath && !fs.existsSync(iconPath)) {
     console.warn('⚠️ Icono no encontrado en:', iconPath);
     iconPath = undefined;
   }
